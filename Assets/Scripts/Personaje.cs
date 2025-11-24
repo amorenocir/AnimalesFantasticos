@@ -9,10 +9,12 @@ public class Personaje : MonoBehaviour
 
     private Rigidbody2D rig;
     private Vector2 movimiento;
+    private Animator anim;
 
     private void Awake()
     {
         rig = GetComponent<Rigidbody2D>();
+        anim = GetComponentInChildren<Animator>();
     }
 
     private void Update()
@@ -30,6 +32,7 @@ public class Personaje : MonoBehaviour
     {
         // Aplicar velocidad al Rigidbody2D
         rig.linearVelocity = movimiento;
+        anim.SetFloat("Anda", Mathf.Abs(rig.linearVelocity.magnitude));
     }
 }
 
