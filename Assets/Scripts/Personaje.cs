@@ -10,11 +10,13 @@ public class Personaje : MonoBehaviour
     private Rigidbody2D rig;
     private Vector2 movimiento;
     private Animator anim;
+    private SpriteRenderer spritePersonaje;
 
     private void Awake()
     {
         rig = GetComponent<Rigidbody2D>();
         anim = GetComponentInChildren<Animator>();
+        spritePersonaje = GetComponentInChildren<SpriteRenderer>();
     }
 
     private void Update()
@@ -26,6 +28,14 @@ public class Personaje : MonoBehaviour
         // Guardar vector de movimiento
         movimiento = new Vector2(horizontal, vertical) * velocidad;
 
+        if (horizontal > 0)
+        {
+            spritePersonaje.flipX = false;
+        }
+        else if (horizontal < 0)
+        {
+            spritePersonaje.flipX = true;
+        }
     }
 
     private void FixedUpdate()
@@ -33,6 +43,8 @@ public class Personaje : MonoBehaviour
         // Aplicar velocidad al Rigidbody2D
         rig.linearVelocity = movimiento;
         anim.SetFloat("Anda", Mathf.Abs(rig.linearVelocity.magnitude));
+
+        
     }
 }
 
