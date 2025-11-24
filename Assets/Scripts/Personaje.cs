@@ -5,7 +5,7 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 public class Personaje : MonoBehaviour
 {
-    [SerializeField] private float velocidad = 5f; // Ajusta la velocidad desde el Inspector
+    [SerializeField] private float velocidad = 5f;
 
     private Rigidbody2D rig;
     private Vector2 movimiento;
@@ -21,13 +21,28 @@ public class Personaje : MonoBehaviour
 
     private void Update()
     {
-        // Leer input cada frame
+        Movimiento();
+    }
+
+    private void FixedUpdate()
+    {
+        // Aplicar velocidad al Rigidbody2D
+        rig.linearVelocity = movimiento;
+
+        // Actualizar animacion
+        anim.SetFloat("Anda", Mathf.Abs(rig.linearVelocity.magnitude));
+    }
+
+    private void Movimiento()
+    {
+        // Leer input
         float horizontal = Input.GetAxis("Horizontal");
         float vertical = Input.GetAxis("Vertical");
 
-        // Guardar vector de movimiento
+        // Calcular vector de movimiento
         movimiento = new Vector2(horizontal, vertical) * velocidad;
 
+        // Girar sprite segun direccion horizontal
         if (horizontal > 0)
         {
             spritePersonaje.flipX = false;
@@ -37,14 +52,6 @@ public class Personaje : MonoBehaviour
             spritePersonaje.flipX = true;
         }
     }
-
-    private void FixedUpdate()
-    {
-        // Aplicar velocidad al Rigidbody2D
-        rig.linearVelocity = movimiento;
-        anim.SetFloat("Anda", Mathf.Abs(rig.linearVelocity.magnitude));
-
-        
-    }
 }
+
 
