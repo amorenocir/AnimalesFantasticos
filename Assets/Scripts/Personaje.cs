@@ -22,6 +22,7 @@ public class Personaje : MonoBehaviour
     private void Update()
     {
         Movimiento();
+        Captura();
     }
 
     private void FixedUpdate()
@@ -50,6 +51,14 @@ public class Personaje : MonoBehaviour
         else if (horizontal < 0)
         {
             spritePersonaje.flipX = true;
+        }
+    }
+
+    private void Captura()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            anim.SetTrigger("Captura");
         }
     }
 }
