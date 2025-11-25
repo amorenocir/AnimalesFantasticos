@@ -6,11 +6,14 @@ using UnityEngine;
 public class Personaje : MonoBehaviour
 {
     [SerializeField] private float velocidad = 5f;
+    [SerializeField] private BoxCollider2D colRed;
 
     private Rigidbody2D rig;
     private Vector2 movimiento;
     private Animator anim;
     private SpriteRenderer spritePersonaje;
+    private float posColX = 1;
+    private float posColY = 0;
 
     private void Awake()
     {
@@ -46,10 +49,12 @@ public class Personaje : MonoBehaviour
         // Girar sprite segun direccion horizontal
         if (horizontal > 0)
         {
+            colRed.offset = new Vector2(posColX, posColY);
             spritePersonaje.flipX = false;
         }
         else if (horizontal < 0)
         {
+            colRed.offset = new Vector2(-posColX, posColY);
             spritePersonaje.flipX = true;
         }
     }
